@@ -13,8 +13,6 @@ public class LostFoundItem {
     private String timestamp;
 
     public LostFoundItem() {}
-
-    // Getters
     public int getId()            { return id; }
     public String getType()       { return type; }
     public String getName()       { return name; }
@@ -26,7 +24,6 @@ public class LostFoundItem {
     public String getImagePath()  { return imagePath; }
     public String getTimestamp()  { return timestamp; }
 
-    // Setters
     public void setId(int id)                   { this.id = id; }
     public void setType(String type)            { this.type = type; }
     public void setName(String name)            { this.name = name; }
@@ -38,7 +35,6 @@ public class LostFoundItem {
     public void setImagePath(String imagePath)  { this.imagePath = imagePath; }
     public void setTimestamp(String timestamp)  { this.timestamp = timestamp; }
 
-    // For display in list
     public String getSummary() {
         return type + " " + category + " – " + description;
     }
