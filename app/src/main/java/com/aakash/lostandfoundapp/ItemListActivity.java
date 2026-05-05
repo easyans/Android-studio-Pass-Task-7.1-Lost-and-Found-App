@@ -30,7 +30,7 @@ public class ItemListActivity extends AppCompatActivity {
         btnLost   = findViewById(R.id.btnLost);
         btnFound  = findViewById(R.id.btnFound);
 
-        // Filter button clicks
+        // This is my Filter button which can be clickable and used in my app.
         btnAll.setOnClickListener(v -> {
             selectedType = "All";
             updateButtonStyles();
@@ -49,7 +49,7 @@ public class ItemListActivity extends AppCompatActivity {
             applyFilter();
         });
 
-        // Tap item → detail screen
+        // This for the tap on item that takses us on to the details screen of the lost item.
         listView.setOnItemClickListener((parent, view, position, id) -> {
             LostFoundItem item = currentList.get(position);
             Intent intent = new Intent(this, ItemDetailActivity.class);
@@ -81,15 +81,12 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     private void updateButtonStyles() {
-        // Reset all to grey
         btnAll.setBackgroundTintList(
                 android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#AAAAAA")));
         btnLost.setBackgroundTintList(
                 android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#AAAAAA")));
         btnFound.setBackgroundTintList(
                 android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#AAAAAA")));
-
-        // Highlight the active button
         switch (selectedType) {
             case "All":
                 btnAll.setBackgroundTintList(
@@ -105,7 +102,6 @@ public class ItemListActivity extends AppCompatActivity {
                 break;
         }
     }
-
     private void loadList() {
         ArrayAdapter<LostFoundItem> adapter = new ArrayAdapter<LostFoundItem>(
                 this, R.layout.list_item, currentList) {
@@ -115,12 +111,10 @@ public class ItemListActivity extends AppCompatActivity {
                     convertView = getLayoutInflater().inflate(R.layout.list_item, parent, false);
                 }
                 LostFoundItem item = currentList.get(position);
-
                 TextView tvTitle     = convertView.findViewById(R.id.tvTitle);
                 TextView tvTimestamp = convertView.findViewById(R.id.tvTimestamp);
                 TextView tvCategory  = convertView.findViewById(R.id.tvCategory);
                 ImageView imgThumb   = convertView.findViewById(R.id.imgThumb);
-
                 String typeLabel = item.getType().equalsIgnoreCase("Lost") ? "Lost" : "Found";
                 tvTitle.setText(typeLabel + ": " + item.getDescription());
                 tvTimestamp.setText(item.getTimestamp());
@@ -136,7 +130,6 @@ public class ItemListActivity extends AppCompatActivity {
                 } else {
                     imgThumb.setImageResource(android.R.drawable.ic_menu_gallery);
                 }
-
                 return convertView;
             }
         };
