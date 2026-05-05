@@ -47,7 +47,5 @@ An Android mobile application built with Java and SQLite that helps connect lost
 
 - Item Detail - View full details and remove advert
 
-## AI Usage Declaration
-
-This project was built with assistance from ChatGPT for errors and trouble shootings.
+## AI Usage Declaration was given in my Document PDF that i have submitted.
 
