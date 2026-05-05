@@ -25,7 +25,6 @@ public class CreateAdvertActivity extends AppCompatActivity {
     private final ActivityResultLauncher<String> imagePickerLauncher =
             registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
                 if (uri != null) {
-                    // Copy image to private app storage to avoid URI permission expiry
                     String savedPath = copyImageToAppStorage(uri);
                     if (savedPath != null) {
                         selectedImagePath = savedPath;
@@ -50,14 +49,12 @@ public class CreateAdvertActivity extends AppCompatActivity {
         spinnerCategory = findViewById(R.id.spinnerCategory);
         imgPreview    = findViewById(R.id.imgPreview);
 
-        // Populate category spinner
         String[] categories = {"Electronics", "Pets", "Wallets", "Keys", "Bags", "Clothing", "Other"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item, categories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(adapter);
 
-        // Date picker
         etDate.setOnClickListener(v -> {
             Calendar cal = Calendar.getInstance();
             new DatePickerDialog(this, (view, year, month, day) ->
@@ -66,31 +63,18 @@ public class CreateAdvertActivity extends AppCompatActivity {
             ).show();
         });
 
-        // Image picker
         findViewById(R.id.btnSelectImage).setOnClickListener(v ->
                 imagePickerLauncher.launch("image/*"));
 
-        // Save button
         findViewById(R.id.btnSave).setOnClickListener(v -> saveItem());
     }
-
-    /**
-     * Copies the picked image into the app's private files directory
-     * so it remains accessible after the picker URI permission expires.
-     */
     private String copyImageToAppStorage(Uri uri) {
         try {
             InputStream inputStream = getContentResolver().openInputStream(uri);
             if (inputStream == null) return null;
-
-            // Create images directory inside app's private storage
             File imagesDir = new File(getFilesDir(), "images");
             if (!imagesDir.exists()) imagesDir.mkdirs();
-
-            // Unique filename
             File destFile = new File(imagesDir, UUID.randomUUID().toString() + ".jpg");
-
-            // Copy bytes
             OutputStream outputStream = new FileOutputStream(destFile);
             byte[] buffer = new byte[4096];
             int bytesRead;
